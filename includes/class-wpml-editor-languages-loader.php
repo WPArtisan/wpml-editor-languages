@@ -3,11 +3,11 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       http://example.com
+ * @link       http://ozthegreat.io/wpml-editor-languages
  * @since      1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
+ * @package    Wpml_Editor_Languages
+ * @subpackage Wpml_Editor_Languages/includes
  */
 
 /**
@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
- * @author     Your Name <email@example.com>
+ * @package    Wpml_Editor_Languages
+ * @subpackage Wpml_Editor_Languages/includes
+ * @author     OzTheGreat <edward@ozthegreat.io>
  */
-class Plugin_Name_Loader {
+class Wpml_Editor_Languages_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

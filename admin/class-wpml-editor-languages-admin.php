@@ -3,11 +3,11 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       http://example.com
+ * @link       http://ozthegreat.io/wpml-editor-languages
  * @since      1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/admin
+ * @package    Wpml_Editor_Languages
+ * @subpackage Wpml_Editor_Languages/admin
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/admin
- * @author     Your Name <email@example.com>
+ * @package    Wpml_Editor_Languages
+ * @subpackage Wpml_Editor_Languages/admin
+ * @author     OzTheGreat <edward@ozthegreat.io>
  */
-class Plugin_Name_Admin {
+class Wpml_Editor_Languages_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -114,7 +114,6 @@ class Plugin_Name_Admin {
 
 	 	return $redirect_to;
 	}
-	add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
 
 	/**
 	 * For Admin only users, show a form on the User profile page
@@ -138,7 +137,7 @@ class Plugin_Name_Admin {
 					<td>
 					<select name="languages_allowed[]" multiple="multiple">
 					<?php foreach( $languages as $language ) : ?>
-						<option value="<?php echo $language['language_code']; ?>" <?php if( isset( $userLanguages[ $language['language_code'] ] )) echo 'selected ' ?>><?php echo $language['translated_name']; ?></option>
+						<option value="<?php echo $language['language_code']; ?>" <?php if ( isset( $userLanguages[ $language['language_code'] ] )) echo 'selected ' ?>><?php echo $language['translated_name']; ?></option>
 					<?php endforeach; ?>
 					</select>
 				</tr>

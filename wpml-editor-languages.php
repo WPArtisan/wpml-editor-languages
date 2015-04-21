@@ -8,7 +8,7 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              http://example.com
+ * @link              http://ozthegreat.io/wpml-editor-languages
  * @since             1.0.0
  * @package           wpml-editor-languages
  *
@@ -29,6 +29,17 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+
+/**
+ * The code that runs during plugin activation.
+ * This action is documented in includes/class-plugin-name-activator.php
+ */
+function activate_wpml_editor_languages() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wpml-editor-languages-activator.php';
+	Wpml_Editor_Languages_Activator::activate();
+}
+
+register_activation_hook( __FILE__, 'activate_wpml_editor_languages' );
 
 /**
  * The core plugin class that is used to define internationalization,
