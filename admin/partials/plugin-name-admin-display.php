@@ -5,11 +5,11 @@
  *
  * This file is used to markup the admin-facing aspects of the plugin.
  *
- * @link       http://example.com
+ * @link       http://ozthegreat.io/wpml-editor-languages
  * @since      1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/admin/partials
+ * @package    Wpml_Editor_Languages
+ * @subpackage Wpml_Editor_Languages/admin/partials
  */
 ?>
 

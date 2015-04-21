@@ -6,7 +6,7 @@
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link       http://example.com
+ * @link       http://ozthegreat.io/wpml-editor-languages
  * @since      1.0.0
  *
  * @package    Wpml_Editor_Languages
