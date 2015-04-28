@@ -32,7 +32,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-plugin-name-activator.php
+ * This action is documented in includes/class-wpml-editor-languages-activator.php
  */
 function activate_wpml_editor_languages() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wpml-editor-languages-activator.php';

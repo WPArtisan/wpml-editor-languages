@@ -49,6 +49,17 @@ class Wpml_Editor_Languages_Activator {
 
     }
 
+    public static function check_reflection_class_exists() {
+
+		if ( ! class_exists("ReflectionClass") )
+        {
+			require_once ABSPATH . '/wp-admin/includes/plugin.php';
+			deactivate_plugins( __FILE__ );
+			wp_die( sprintf( __( 'The PHP ReflectionClass is required to use this plugin. The plugin has now disabled itself. For more info see the WordPress <a href="http://wordpress.org/about/requirements/">requirements page</a>', self::$language_domain ), $required_php_version ) );
+		}
+
+    }
+
     public static function check_user_can_activate_plugins() {
 
         if ( ! is_plugin_active( 'wpml/sitepress.php' ) )
