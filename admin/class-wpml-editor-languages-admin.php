@@ -67,23 +67,23 @@ class Wpml_Editor_Languages_Admin {
 
 		$reflection_class = new ReflectionClass('Sitepress');
 
-		// `active_languages` is set to private, override that
-		// using the relflection class.
+		// `active_languages` property is set to private,
+		// override that using the relflection class.
 		$active_languages_property = $reflection_class->getProperty('active_languages');
 		$active_languages_property->setAccessible(true);
 
 		$active_languages = $active_languages_property->getValue( $sitepress );
-		$userLanguages    = array_flip( get_user_allowed_languages( get_current_user_id() ) );
-		$active_languages = array_intersect( $active_languages, $userLanguages );
+		$user_languages    = array_flip( $this->get_user_allowed_languages( get_current_user_id() ) );
+		$active_languages = array_intersect( $active_languages, $user_languages );
 
 		$active_languages_property->setValue( $sitepress, $active_languages );
 
 		// Will die if they try to switch surreptitiously
-		if ( ! isset( $userLanguages[ ICL_LANGUAGE_CODE ] ) )
+		if ( ! isset( $user_languages[ ICL_LANGUAGE_CODE ] ) )
 		{
 			// Restrict access
 			do_action('admin_page_access_denied');
-			$backLink = '<a href="' . admin_url() . '?lang=' . key( $userLanguages ) . '">' . __('Back to home') . '</a>';
+			$backLink = '<a href="' . admin_url() . '?lang=' . key( $user_languages ) . '">' . __('Back to home') . '</a>';
 
 			wp_die( __('You cannot modify or delete this entry. ' . $backLink) );
 			exit;
@@ -93,7 +93,7 @@ class Wpml_Editor_Languages_Admin {
 
 	/**
 	 * When a User first logs in to the admin, check the default
-	 * language is in their allowed languages, otherwise show and error
+	 * language is in their allowed languages, otherwise show an error
 	 * and redirect to ther first allowed langauage
 	 * @access public
 	 * @param  string $redirect_to
@@ -109,7 +109,7 @@ class Wpml_Editor_Languages_Admin {
 
 	 	if ( $userLanguage = get_user_meta( $user->ID, 'icl_admin_language', true ) )
 	 	{
-	 		return get_admin_url( FALSE, '?lang=' . $userLanguage );
+	 		return admin_url() . '?lang=' . $userLanguage;
 	 	}
 
 	 	return $redirect_to;
@@ -128,21 +128,9 @@ class Wpml_Editor_Languages_Admin {
 	 		return;
 
 		$languages = icl_get_languages('skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str');
-		$userLanguages = array_flip( get_user_allowed_languages( $user->ID ) );
-		?>
-			<h3><?php _e( 'Allowed Languages', 'cleanipedia_theme' ); ?></h3>
-			<table class="form-table">
-				<tr>
-					<th><label for="languages_allowed"><?php _e('Languages allowed to edit', 'cleanipedia_theme' ); ?></label></th>
-					<td>
-					<select name="languages_allowed[]" multiple="multiple">
-					<?php foreach( $languages as $language ) : ?>
-						<option value="<?php echo $language['language_code']; ?>" <?php if ( isset( $userLanguages[ $language['language_code'] ] )) echo 'selected ' ?>><?php echo $language['translated_name']; ?></option>
-					<?php endforeach; ?>
-					</select>
-				</tr>
-			</table>
-		<?php
+		$user_languages = array_flip( $this->get_user_allowed_languages( $user->ID ) );
+
+		include 'partials/wpml-editor-languages-user-languages-select.php';
 	}
 
 	/**
@@ -153,12 +141,11 @@ class Wpml_Editor_Languages_Admin {
 	 * @return void
 	 */
 	public function save_user_languages_allowed($id) {
-
 		// If not an Admin, they can't edit it
 		if ( ! current_user_can( 'manage_options' ) )
 			return;
 
-		$languages_allowed = $_POST['languages_allowed'];
+		$languages_allowed = ! empty( $_POST['languages_allowed'] ) ? $_POST['languages_allowed'] : array() ;
 
 		update_user_meta( $id,'languages_allowed', sanitize_text_field( json_encode( $languages_allowed ) ) );
 
@@ -168,6 +155,16 @@ class Wpml_Editor_Languages_Admin {
 		{
 			update_user_meta( $id,'icl_admin_language', key( $languages_allowed ) );
 		}
+	}
+
+	/**
+	 * Returns an array of all the languages a user is allowed to edit
+	 * @param   int $user_id
+	 * @return  array
+	 */
+	public function get_user_allowed_languages($user_id) {
+		$user_languages = json_decode( get_the_author_meta( 'languages_allowed', $user_id ) );
+		return ! empty( $user_languages ) && is_array( $user_languages ) ? $user_languages : array();
 	}
 
 }
