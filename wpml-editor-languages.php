@@ -30,6 +30,10 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+// Define plugin specifc constants used throughout
+DEFINE('WPML_EDITOR_LANGUAGES_PLUGIN_NAME', 'wpml-editor-languages');
+DEFINE('WPML_EDITOR_LANGUAGES_TEXT_DOMAIN', WPML_EDITOR_LANGUAGES_PLUGIN_NAME);
+
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-wpml-editor-languages-activator.php

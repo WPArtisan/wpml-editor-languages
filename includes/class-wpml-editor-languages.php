@@ -68,8 +68,8 @@ class Wpml_Editor_Languages {
 	 */
 	public function __construct() {
 
-		$this->plugin_name = 'wpml-editor-languages';
-		$this->version = '1.0.0';
+		$this->plugin_name = WPML_EDITOR_LANGUAGES_PLUGIN_NAME;
+		$this->version     = WPML_EDITOR_LANGUAGES_VERSION;
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -128,7 +128,7 @@ class Wpml_Editor_Languages {
 	private function set_locale() {
 
 		$plugin_i18n = new Wpml_Editor_Languages_i18n();
-		$plugin_i18n->set_domain( $this->get_plugin_name() );
+		$plugin_i18n->set_domain( WPML_EDITOR_LANGUAGES_TEXT_DOMAIN );
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
