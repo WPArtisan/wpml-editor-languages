@@ -62,6 +62,9 @@ class Wpml_Editor_Languages_Admin {
 	 * @return null
 	 */
 	public function set_allowed_languages() {
+		// Admins can edit any language
+	 	if ( current_user_can( 'manage_options' ) )
+	 		return;
 
 		global $sitepress;
 
