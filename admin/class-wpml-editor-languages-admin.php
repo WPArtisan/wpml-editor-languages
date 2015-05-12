@@ -77,7 +77,7 @@ class Wpml_Editor_Languages_Admin {
 
 		$active_languages = $active_languages_property->getValue( $sitepress );
 		$user_languages   = array_flip( $this->get_user_allowed_languages( get_current_user_id() ) );
-		$active_languages = array_intersect( $active_languages, $user_languages );
+		$active_languages = array_intersect_key( $active_languages, $user_languages );
 
 		$active_languages_property->setValue( $sitepress, $active_languages );
 
