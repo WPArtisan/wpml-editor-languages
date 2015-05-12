@@ -23,11 +23,10 @@
 class Wpml_Editor_Languages_Activator {
 
 	/**
-	 * Short Description. (use period)
+	 * Registers any checks to run on plugin activation.
 	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
+	 * @since   1.0.0
+	 * @return  null
 	 */
 	public static function activate() {
         self::check_php_version();
@@ -36,6 +35,12 @@ class Wpml_Editor_Languages_Activator {
         self::check_wpml_activated();
 	}
 
+	/**
+	 * Does a check to make sure that the PHP version is equal or
+	 * greater than the WordPress minimum.
+	 *
+	 * @return null
+	 */
     public static function check_php_version() {
 		global $required_php_version;
 
@@ -52,6 +57,12 @@ class Wpml_Editor_Languages_Activator {
 		}
     }
 
+	/**
+	 * Does a check to make sure that the PHP reflection class
+	 * exists and can be used.
+	 *
+	 * @return null
+	 */
     public static function check_reflection_class_exists() {
 		if ( ! class_exists("ReflectionClass") )
         {
@@ -59,6 +70,12 @@ class Wpml_Editor_Languages_Activator {
 		}
     }
 
+	/**
+	 * Does a check to make sure that the current user has
+	 * the correct permissions to activate plugins.
+	 *
+	 * @return null
+	 */
     public static function check_user_can_activate_plugins() {
         if ( ! current_user_can( 'activate_plugins' ) )
         {
@@ -66,13 +83,27 @@ class Wpml_Editor_Languages_Activator {
 		}
     }
 
+	/**
+	 * Does a check to make sure that WPML is installed and active.
+	 *
+	 * @return null
+	 */
     public static function check_wpml_activated() {
         if ( ! is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) )
         {
-            self::deactivate_plugin( __( 'This plugin is an extension for WPML and is usless without. You can purchase WPML <a href="https://wpml.org/">here</a>', WPML_EDITOR_LANGUAGES_TEXT_DOMAIN ) );
+            self::deactivate_plugin(
+				__( 'This plugin is an extension for WPML and is usless without. You can purchase WPML <a href="https://wpml.org/">here</a>', WPML_EDITOR_LANGUAGES_TEXT_DOMAIN )
+			);
 		}
     }
 
+	/**
+	 * A generic function for deactivating this plugin and
+	 * posting a WordPress die message.
+	 *
+	 * @param  string $error_message Error message to display on die page
+	 * @return null
+	 */
     public static function deactivate_plugin($error_message) {
         require_once ABSPATH . '/wp-admin/includes/plugin.php';
         deactivate_plugins( plugin_basename( __FILE__ ) );
