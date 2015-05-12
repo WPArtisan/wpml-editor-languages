@@ -145,11 +145,11 @@ class Wpml_Editor_Languages {
 
 		$plugin_admin = new Wpml_Editor_Languages_Admin( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'init', $plugin_admin, 'set_allowed_languages' );
-		$this->loader->add_action( 'login_redirect', $plugin_admin, 'login_allowd_languages_redirect' );
-		$this->loader->add_action( 'edit_user_profile', $plugin_admin, 'add_user_languages_persmissions' );
-		$this->loader->add_action( 'personal_options_update', $plugin_admin, 'save_user_languages_allowed' );
-		$this->loader->add_action( 'edit_user_profile_update', $plugin_admin, 'save_user_languages_allowed' );
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'set_allowed_languages', 10 );
+		$this->loader->add_action( 'login_redirect', $plugin_admin, 'login_allowd_languages_redirect', 10, 3 );
+		$this->loader->add_action( 'edit_user_profile', $plugin_admin, 'add_user_languages_persmissions', 10 );
+		$this->loader->add_action( 'personal_options_update', $plugin_admin, 'save_user_languages_allowed', 10 );
+		$this->loader->add_action( 'edit_user_profile_update', $plugin_admin, 'save_user_languages_allowed', 10 );
 
 	}
 
