@@ -44,22 +44,22 @@ class Wpml_Editor_Languages_Admin {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @access   public
+	 * @param    string  $plugin_name  The name of this plugin.
+	 * @param    string  $version      The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
-
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-
 	}
 
 	/**
 	 * This inspects the global Sitepress object then uses the
 	 * ReflectionClass to override the active_languages property
-	 * dependent on the allowed languages for the current user,
-	 * @access public
-	 * @return null
+	 * dependent on the allowed languages for the current user.
+	 *
+	 * @access  public
+	 * @return  null
 	 */
 	public function set_allowed_languages() {
 		// Admins can edit any language
@@ -76,7 +76,7 @@ class Wpml_Editor_Languages_Admin {
 		$active_languages_property->setAccessible(true);
 
 		$active_languages = $active_languages_property->getValue( $sitepress );
-		$user_languages    = array_flip( $this->get_user_allowed_languages( get_current_user_id() ) );
+		$user_languages   = array_flip( $this->get_user_allowed_languages( get_current_user_id() ) );
 		$active_languages = array_intersect( $active_languages, $user_languages );
 
 		$active_languages_property->setValue( $sitepress, $active_languages );
@@ -86,9 +86,9 @@ class Wpml_Editor_Languages_Admin {
 		{
 			// Restrict access
 			do_action('admin_page_access_denied');
-			$backLink = '<a href="' . admin_url() . '?lang=' . key( $user_languages ) . '">' . __('Back to home') . '</a>';
+			$backLink = '<a href="' . admin_url() . '?lang=' . key( $user_languages ) . '">' . __( 'Back to home', WPML_EDITOR_LANGUAGES_TEXT_DOMAIN ) . '</a>';
 
-			wp_die( __('You cannot modify or delete this entry. ' . $backLink) );
+			wp_die( __( 'You cannot modify or delete this entry. ' . $backLink, WPML_EDITOR_LANGUAGES_TEXT_DOMAIN ) );
 			exit;
 		}
 
@@ -98,14 +98,14 @@ class Wpml_Editor_Languages_Admin {
 	 * When a User first logs in to the admin, check the default
 	 * language is in their allowed languages, otherwise show an error
 	 * and redirect to ther first allowed langauage
+	 *
 	 * @access public
 	 * @param  string $redirect_to
-	 * @param  array  $request     [description]
-	 * @param  obj    $user        [description]
+	 * @param  array  $request
+	 * @param  obj    $user
 	 * @return string
 	 */
 	public function login_allowd_languages_redirect( $redirect_to, $request, $user ) {
-
 		// If no $user is set or the user is an admin, continue
 		if ( empty( $user->ID ) || current_user_can( 'manage_options' ) )
 			return $redirect_to;
@@ -121,6 +121,7 @@ class Wpml_Editor_Languages_Admin {
 	/**
 	 * For Admin only users, show a form on the User profile page
 	 * allowing you them to specify the languages that User can edit.
+	 *
 	 * @access public
 	 * @param  obj    $user Standard WP User object
 	 * @return null
@@ -137,8 +138,9 @@ class Wpml_Editor_Languages_Admin {
 	}
 
 	/**
-	 * When saving a User profile as Admin, update the dba_list
-	 * of languages that User is allowed to access
+	 * When saving a User profile as Admin, update the list
+	 * of languages that User is allowed to access.
+	 *
 	 * @access public
 	 * @param  int $id The ID of the User to edit
 	 * @return void
@@ -156,12 +158,14 @@ class Wpml_Editor_Languages_Admin {
 
 		if ( ! isset( $languages_allowed[ get_user_meta( $id, 'icl_admin_language', true ) ] ) )
 		{
-			update_user_meta( $id,'icl_admin_language', key( $languages_allowed ) );
+			update_user_meta( $id, 'icl_admin_language', key( $languages_allowed ) );
 		}
 	}
 
 	/**
-	 * Returns an array of all the languages a user is allowed to edit
+	 * Returns an array of all the languages a user is allowed to edit.
+	 *
+	 * @access  public
 	 * @param   int $user_id
 	 * @return  array
 	 */

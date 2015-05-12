@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       WPML Editor Languages
  * Plugin URI:        http://ozthegreat.io/wpml-editor-languages
- * Description:       Allows editiors to be restricted to a certain language in WPML
+ * Description:       Allows editiors to be restricted to languages with WPML
  * Version:           1.0.0
  * Author:            OzTheGreat
  * Author URI:        http://ozthegreat.io
