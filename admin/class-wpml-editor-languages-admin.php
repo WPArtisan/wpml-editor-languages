@@ -139,7 +139,7 @@ class Wpml_Editor_Languages_Admin {
 	 */
 	public function add_user_languages_persmissions( $user ) {
 		// If not an Admin, they can't edit it
-	 	if ( ! current_user_can( 'manage_options' ) )
+	 	if ( ! current_user_can( 'manage_options' ) || ! function_exists("icl_get_languages") )
 	 		return;
 
 		$languages      = icl_get_languages('skip_missing =N&orderby =KEY&order =DIR&link_empty_to =str');
