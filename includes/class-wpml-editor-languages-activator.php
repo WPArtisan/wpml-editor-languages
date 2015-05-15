@@ -44,16 +44,21 @@ class Wpml_Editor_Languages_Activator {
     public static function check_php_version() {
 		global $required_php_version;
 
-		if ( version_compare( PHP_VERSION, $required_php_version, '<' ) )
+		if ( version_compare( PHP_VERSION, $required_php_version ) < 0 )
         {
-            self::deactivate_plugin( sprintf(
-                __(
-                    'WPML Editor Languages requires PHP % or higher, as does WordPress 3.2 and higher.
-                    The plugin has now disabled itself. For more info see the WordPress
-                    <a href="http://wordpress.org/about/requirements/">requirements page</a>',
-                    WPML_EDITOR_LANGUAGES_TEXT_DOMAIN
-                ),
-            $required_php_version ) );
+			self::deactivate_plugin( sprintf(
+				wp_kses(
+					__(
+						'WPML Editor Languages requires PHP %s or higher, as does WordPress 3.2 and higher.
+						The plugin has now disabled itself. For more info see the WordPress
+						<a href="%s">requirements page</a>',
+						WPML_EDITOR_LANGUAGES_TEXT_DOMAIN
+					),
+					array(  'a' => array( 'href' => true, 'title' => true, 'target' => true ) )
+				),
+				$required_php_version,
+				esc_url_raw( 'https://wordpress.org/about/requirements/' )
+			) );
 		}
     }
 
@@ -91,9 +96,16 @@ class Wpml_Editor_Languages_Activator {
     public static function check_wpml_activated() {
         if ( ! is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) )
         {
-            self::deactivate_plugin(
-				__( 'This plugin is an extension for WPML and is usless without. You can purchase WPML <a href="https://wpml.org/">here</a>', WPML_EDITOR_LANGUAGES_TEXT_DOMAIN )
-			);
+			self::deactivate_plugin( sprintf(
+				wp_kses(
+					__(
+						'This plugin is an extension for WPML and is usless without. You can purchase WPML <a href="%s">here</a>',
+						WPML_EDITOR_LANGUAGES_TEXT_DOMAIN
+					),
+					array(  'a' => array( 'href' => true, 'title' => true, 'target' => true ) )
+				),
+				esc_url_raw( 'https://wpml.org/' )
+			) );
 		}
     }
 
