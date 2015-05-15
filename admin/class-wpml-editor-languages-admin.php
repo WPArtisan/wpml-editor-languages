@@ -68,6 +68,11 @@ class Wpml_Editor_Languages_Admin {
 
 		global $sitepress;
 
+		// If there's no global $sitepress object
+		// there's nothing to do here
+		if ( empty( $sitepress ) )
+			return;
+
 		$reflection_class = new ReflectionClass('Sitepress');
 
 		// `active_languages` property is set to private,
@@ -78,17 +83,23 @@ class Wpml_Editor_Languages_Admin {
 		$active_languages = $active_languages_property->getValue( $sitepress );
 		$user_languages   = array_flip( $this->get_user_allowed_languages( get_current_user_id() ) );
 		$active_languages = array_intersect_key( $active_languages, $user_languages );
+		$active_languages = apply_filters( 'wpmlel_active_languages', $active_languages );
 
 		$active_languages_property->setValue( $sitepress, $active_languages );
 
 		// Will die if they try to switch surreptitiously
 		if ( ! isset( $user_languages[ ICL_LANGUAGE_CODE ] ) )
 		{
-			// Restrict access
 			do_action('admin_page_access_denied');
-			$backLink = '<a href="' . admin_url() . '?lang=' . key( $user_languages ) . '">' . __( 'Back to home', WPML_EDITOR_LANGUAGES_TEXT_DOMAIN ) . '</a>';
 
-			wp_die( __( 'You cannot modify or delete this entry. ' . $backLink, WPML_EDITOR_LANGUAGES_TEXT_DOMAIN ) );
+			wp_die( sprintf(
+				wp_kses(
+					__( 'You cannot modify or delete this entry. <a href="%s">Back to home</a>', WPML_EDITOR_LANGUAGES_TEXT_DOMAIN ),
+					array(  'a' => array( 'href' => true, 'title' => true, 'target' => true ) )
+				),
+				esc_url_raw( admin_url() . '?lang=' . key( $user_languages ) )
+			) );
+
 			exit;
 		}
 
@@ -97,7 +108,7 @@ class Wpml_Editor_Languages_Admin {
 	/**
 	 * When a User first logs in to the admin, check the default
 	 * language is in their allowed languages, otherwise show an error
-	 * and redirect to ther first allowed langauage
+	 * and redirect to ther first allowed langauage.
 	 *
 	 * @access public
 	 * @param  string $redirect_to
@@ -110,28 +121,28 @@ class Wpml_Editor_Languages_Admin {
 		if ( empty( $user->ID ) || current_user_can( 'manage_options' ) )
 			return $redirect_to;
 
-	 	if ( $userLanguage = get_user_meta( $user->ID, 'icl_admin_language', true ) )
+	 	if ( $user_language = get_user_meta( $user->ID, 'icl_admin_language', true ) )
 	 	{
-	 		return admin_url() . '?lang=' . $userLanguage;
+	 		return esc_url_raw( apply_filters( 'wpmlel_admin_redirect', admin_url() . '?lang=' . $user_language ) );
 	 	}
 
 	 	return $redirect_to;
 	}
 
 	/**
-	 * For Admin only users, show a form on the User profile page
+	 * For Admin users users, show a form on the User profile page
 	 * allowing you them to specify the languages that User can edit.
 	 *
 	 * @access public
 	 * @param  obj    $user Standard WP User object
 	 * @return null
 	 */
-	public function add_user_languages_persmissions($user) {
+	public function add_user_languages_persmissions( $user ) {
 		// If not an Admin, they can't edit it
 	 	if ( ! current_user_can( 'manage_options' ) )
 	 		return;
 
-		$languages = icl_get_languages('skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str');
+		$languages      = icl_get_languages('skip_missing =N&orderby =KEY&order =DIR&link_empty_to =str');
 		$user_languages = array_flip( $this->get_user_allowed_languages( $user->ID ) );
 
 		include 'partials/wpml-editor-languages-user-languages-select.php';
@@ -145,20 +156,22 @@ class Wpml_Editor_Languages_Admin {
 	 * @param  int $id The ID of the User to edit
 	 * @return void
 	 */
-	public function save_user_languages_allowed($id) {
+	public function save_user_languages_allowed( $user_id ) {
 		// If not an Admin, they can't edit it
 		if ( ! current_user_can( 'manage_options' ) )
 			return;
 
-		$languages_allowed = ! empty( $_POST['languages_allowed'] ) ? $_POST['languages_allowed'] : array() ;
+		$languages_allowed = ! empty( $_POST['languages_allowed'] ) ? $_POST['languages_allowed'] : array();
+		$languages_allowed = (array) apply_filters( 'wpmlel_save_user_languages', $languages_allowed, $user_id );
 
-		update_user_meta( $id,'languages_allowed', sanitize_text_field( json_encode( $languages_allowed ) ) );
+		update_user_meta( $user_id,'languages_allowed', sanitize_text_field( json_encode( $languages_allowed ) ) );
 
 		$languages_allowed = array_flip( $languages_allowed );
 
-		if ( ! isset( $languages_allowed[ get_user_meta( $id, 'icl_admin_language', true ) ] ) )
+		// Check the default admin language is in the Users' allowed languages
+		if ( ! isset( $languages_allowed[ get_user_meta( $user_id, 'icl_admin_language', true ) ] ) )
 		{
-			update_user_meta( $id, 'icl_admin_language', key( $languages_allowed ) );
+			update_user_meta( $user_id, 'icl_admin_language', key( $languages_allowed ) );
 		}
 	}
 
@@ -169,8 +182,9 @@ class Wpml_Editor_Languages_Admin {
 	 * @param   int $user_id
 	 * @return  array
 	 */
-	public function get_user_allowed_languages($user_id) {
+	public function get_user_allowed_languages( $user_id ) {
 		$user_languages = json_decode( get_the_author_meta( 'languages_allowed', $user_id ) );
+		$user_languages = apply_filters( 'wpmlel_user_languages', $user_languages, $user_id );
 		return ! empty( $user_languages ) && is_array( $user_languages ) ? $user_languages : array();
 	}
 
