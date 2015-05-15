@@ -20,7 +20,7 @@
         <th><label for="languages_allowed"><?php _e( 'Languages allowed to edit', WPML_EDITOR_LANGUAGES_TEXT_DOMAIN ); ?></label></th>
         <td>
             <select name="languages_allowed[]" multiple="multiple">
-            <?php foreach ( $languages as $language ) : ?>
+            <?php foreach ( (array) $languages as $language ) : ?>
                 <option value="<?php echo $language['language_code']; ?>" <?php if ( isset( $user_languages[ $language['language_code'] ] ) ) echo 'selected ' ?>>
                     <?php echo $language['translated_name']; ?>
                 </option>
