@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== WPML Editor Languages ===
 Contributors: ozthegreat
 Donate link: http://ozthegreat.io/wpml-editor-languages/
 Tags: WPML, languages, multilingual, i18n, admin
