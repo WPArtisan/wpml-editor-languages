@@ -3,7 +3,7 @@
 /**
  * Fired during plugin activation
  *
- * @link       http://ozthegreat.io/wpml-editor-languages
+ * @link       https://ozthegreat.io/wpml-editor-languages
  * @since      1.0.0
  *
  * @package    Wpml_Editor_Languages
