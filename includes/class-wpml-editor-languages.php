@@ -147,7 +147,11 @@ class Wpml_Editor_Languages {
 
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'set_allowed_languages', 10 );
 		$this->loader->add_action( 'login_redirect', $plugin_admin, 'login_allowd_languages_redirect', 10, 3 );
+
+		$this->loader->add_action( 'user_new_form', $plugin_admin, 'add_user_languages_persmissions', 10 );
 		$this->loader->add_action( 'edit_user_profile', $plugin_admin, 'add_user_languages_persmissions', 10 );
+
+		$this->loader->add_action( 'user_register', $plugin_admin, 'save_user_languages_allowed', 10 );
 		$this->loader->add_action( 'personal_options_update', $plugin_admin, 'save_user_languages_allowed', 10 );
 		$this->loader->add_action( 'edit_user_profile_update', $plugin_admin, 'save_user_languages_allowed', 10 );
 

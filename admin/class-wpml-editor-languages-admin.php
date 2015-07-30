@@ -142,8 +142,16 @@ class Wpml_Editor_Languages_Admin {
 		if ( ! current_user_can( 'manage_options' ) || ! function_exists( 'icl_get_languages' ) )
 			return;
 
-		$languages      = icl_get_languages('skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str');
-		$user_languages = array_flip( $this->get_user_allowed_languages( $user->ID ) );
+		global $pagenow;
+
+		$languages = icl_get_languages( 'skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str' );
+
+		if ( $pagenow == 'user-new.php' ) {
+			global $sitepress;
+			$user_languages = array( $sitepress->get_default_language() => true );
+		} else {
+			$user_languages = array_flip( $this->get_user_allowed_languages( $user->ID ) );
+		}
 
 		include 'partials/wpml-editor-languages-user-languages-select.php';
 	}
@@ -164,14 +172,14 @@ class Wpml_Editor_Languages_Admin {
 		$languages_allowed = ! empty( $_POST['languages_allowed'] ) ? $_POST['languages_allowed'] : array();
 		$languages_allowed = (array) apply_filters( 'wpmlel_save_user_languages', $languages_allowed, $user_id );
 
-		update_user_meta( $user_id,'languages_allowed', sanitize_text_field( json_encode( $languages_allowed ) ) );
+		update_user_option( $user_id,'languages_allowed', sanitize_text_field( json_encode( $languages_allowed ) ) );
 
 		$languages_allowed = array_flip( $languages_allowed );
 
 		// Check the default admin language is in the Users' allowed languages
 		if ( ! isset( $languages_allowed[ get_user_meta( $user_id, 'icl_admin_language', true ) ] ) )
 		{
-			update_user_meta( $user_id, 'icl_admin_language', key( $languages_allowed ) );
+			update_user_option( $user_id, 'icl_admin_language', key( $languages_allowed ) );
 		}
 	}
 
@@ -183,7 +191,7 @@ class Wpml_Editor_Languages_Admin {
 	 * @return  array
 	 */
 	public function get_user_allowed_languages( $user_id ) {
-		$user_languages = json_decode( get_the_author_meta( 'languages_allowed', $user_id ) );
+		$user_languages = json_decode( get_user_option( 'languages_allowed', $user_id ) );
 		$user_languages = apply_filters( 'wpmlel_user_languages', $user_languages, $user_id );
 		return ! empty( $user_languages ) && is_array( $user_languages ) ? $user_languages : array();
 	}
