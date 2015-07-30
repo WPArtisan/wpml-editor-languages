@@ -16,16 +16,16 @@
 
 <h3><?php _e( 'Allowed Languages', 'wpml-editor-languages' ); ?></h3>
 <table class="form-table">
-    <tr>
-        <th><label for="languages_allowed"><?php _e( 'Languages allowed to edit', 'wpml-editor-languages' ); ?></label></th>
-        <td>
-            <select name="languages_allowed[]" multiple="multiple">
-            <?php foreach ( (array) $languages as $language ) : ?>
-                <option value="<?php echo $language['language_code']; ?>" <?php if ( isset( $user_languages[ $language['language_code'] ] ) ) echo 'selected ' ?>>
-                    <?php echo $language['translated_name']; ?>
-                </option>
-            <?php endforeach; ?>
-            </select>
-        </td>
-    </tr>
+	<tr>
+		<th><label for="languages_allowed"><?php _e( 'Languages allowed to edit', 'wpml-editor-languages' ); ?></label></th>
+		<td>
+			<select name="languages_allowed[]" multiple="multiple">
+			<?php foreach ( (array) $languages as $language ) : ?>
+				<option value="<?php echo $language['language_code']; ?>" <?php if ( isset( $user_languages[ $language['language_code'] ] ) ) echo 'selected ' ?>>
+					<?php echo $language['translated_name']; ?>
+				</option>
+			<?php endforeach; ?>
+			</select>
+		</td>
+	</tr>
 </table>

@@ -63,8 +63,8 @@ class Wpml_Editor_Languages_Admin {
 	 */
 	public function set_allowed_languages() {
 		// Admins can edit any language
-	 	if ( current_user_can( 'manage_options' ) )
-	 		return;
+		if ( current_user_can( 'manage_options' ) )
+			return;
 
 		global $sitepress;
 
@@ -121,12 +121,12 @@ class Wpml_Editor_Languages_Admin {
 		if ( empty( $user->ID ) || current_user_can( 'manage_options' ) )
 			return $redirect_to;
 
-	 	if ( $user_language = get_user_meta( $user->ID, 'icl_admin_language', true ) )
-	 	{
-	 		return esc_url_raw( apply_filters( 'wpmlel_admin_redirect', admin_url() . '?lang=' . $user_language ) );
-	 	}
+		if ( $user_language = get_user_meta( $user->ID, 'icl_admin_language', true ) )
+		{
+			return esc_url_raw( apply_filters( 'wpmlel_admin_redirect', admin_url() . '?lang=' . $user_language ) );
+		}
 
-	 	return $redirect_to;
+		return $redirect_to;
 	}
 
 	/**
@@ -139,8 +139,8 @@ class Wpml_Editor_Languages_Admin {
 	 */
 	public function add_user_languages_persmissions( $user ) {
 		// If not an Admin, they can't edit it
-	 	if ( ! current_user_can( 'manage_options' ) || ! function_exists( 'icl_get_languages' ) )
-	 		return;
+		if ( ! current_user_can( 'manage_options' ) || ! function_exists( 'icl_get_languages' ) )
+			return;
 
 		$languages      = icl_get_languages('skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str');
 		$user_languages = array_flip( $this->get_user_allowed_languages( $user->ID ) );
