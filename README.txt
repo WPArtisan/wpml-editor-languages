@@ -3,8 +3,8 @@ Contributors: ozthegreat
 Donate link: https://ozthegreat.io/wpml-editor-languages
 Tags: WPML, languages, multilingual, i18n, admin
 Requires at least: 3.0.1
-Tested up to: 4.2.2
-Stable tag: 1.0.0
+Tested up to: 4.2.3
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,6 +38,13 @@ the other languages.
 not allowed to.
 
 == Changelog ==
+
+= 1.0.1 =
+* WPMU compatible
+* Added Language box to he User create with the default language pre-populated
+* WordPress 4.2.3 version check
+* Fix language domain
+* Covert spaces to tabs
 
 = 1.0.0 =
 * First release
