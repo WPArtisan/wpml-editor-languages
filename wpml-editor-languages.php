@@ -33,7 +33,6 @@ if ( ! defined( 'WPINC' ) ) {
 // Define plugin specifc constants used throughout
 DEFINE('WPML_EDITOR_LANGUAGES_VERSION', '1.0.0');
 DEFINE('WPML_EDITOR_LANGUAGES_PLUGIN_NAME', 'wpml-editor-languages');
-DEFINE('WPML_EDITOR_LANGUAGES_TEXT_DOMAIN', WPML_EDITOR_LANGUAGES_PLUGIN_NAME);
 
 /**
  * The code that runs during plugin activation.
