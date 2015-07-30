@@ -52,7 +52,7 @@ class Wpml_Editor_Languages_Activator {
 						'WPML Editor Languages requires PHP %s or higher, as does WordPress 3.2 and higher.
 						The plugin has now disabled itself. For more info see the WordPress
 						<a href="%s">requirements page</a>',
-						WPML_EDITOR_LANGUAGES_TEXT_DOMAIN
+						'wpml-editor-languages'
 					),
 					array(  'a' => array( 'href' => true, 'title' => true, 'target' => true ) )
 				),
@@ -71,7 +71,7 @@ class Wpml_Editor_Languages_Activator {
     public static function check_reflection_class_exists() {
 		if ( ! class_exists("ReflectionClass") )
         {
-            self::deactivate_plugin( __( 'The PHP ReflectionClass is required to use this plugin. The plugin has now disabled itself.', WPML_EDITOR_LANGUAGES_TEXT_DOMAIN ) );
+            self::deactivate_plugin( __( 'The PHP ReflectionClass is required to use this plugin. The plugin has now disabled itself.', 'wpml-editor-languages' ) );
 		}
     }
 
@@ -84,7 +84,7 @@ class Wpml_Editor_Languages_Activator {
     public static function check_user_can_activate_plugins() {
         if ( ! current_user_can( 'activate_plugins' ) )
         {
-            self::deactivate_plugin( __( 'You do not have sufficient privileges to activate this plugin.', WPML_EDITOR_LANGUAGES_TEXT_DOMAIN ) );
+            self::deactivate_plugin( __( 'You do not have sufficient privileges to activate this plugin.', 'wpml-editor-languages' ) );
 		}
     }
 
@@ -100,7 +100,7 @@ class Wpml_Editor_Languages_Activator {
 				wp_kses(
 					__(
 						'This plugin is an extension for WPML and is usless without. You can purchase WPML <a href="%s">here</a>',
-						WPML_EDITOR_LANGUAGES_TEXT_DOMAIN
+						'wpml-editor-languages'
 					),
 					array(  'a' => array( 'href' => true, 'title' => true, 'target' => true ) )
 				),

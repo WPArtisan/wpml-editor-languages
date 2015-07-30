@@ -128,7 +128,7 @@ class Wpml_Editor_Languages {
 	private function set_locale() {
 
 		$plugin_i18n = new Wpml_Editor_Languages_i18n();
-		$plugin_i18n->set_domain( WPML_EDITOR_LANGUAGES_TEXT_DOMAIN );
+		$plugin_i18n->set_domain( 'wpml-editor-languages' );
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 

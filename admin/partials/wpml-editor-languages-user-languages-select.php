@@ -14,10 +14,10 @@
  */
 ?>
 
-<h3><?php _e( 'Allowed Languages', WPML_EDITOR_LANGUAGES_TEXT_DOMAIN ); ?></h3>
+<h3><?php _e( 'Allowed Languages', 'wpml-editor-languages' ); ?></h3>
 <table class="form-table">
     <tr>
-        <th><label for="languages_allowed"><?php _e( 'Languages allowed to edit', WPML_EDITOR_LANGUAGES_TEXT_DOMAIN ); ?></label></th>
+        <th><label for="languages_allowed"><?php _e( 'Languages allowed to edit', 'wpml-editor-languages' ); ?></label></th>
         <td>
             <select name="languages_allowed[]" multiple="multiple">
             <?php foreach ( (array) $languages as $language ) : ?>

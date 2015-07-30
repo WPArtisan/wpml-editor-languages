@@ -94,7 +94,7 @@ class Wpml_Editor_Languages_Admin {
 
 			wp_die( sprintf(
 				wp_kses(
-					__( 'You cannot modify or delete this entry. <a href="%s">Back to home</a>', WPML_EDITOR_LANGUAGES_TEXT_DOMAIN ),
+					__( 'You cannot modify or delete this entry. <a href="%s">Back to home</a>', 'wpml-editor-languages' ),
 					array(  'a' => array( 'href' => true, 'title' => true, 'target' => true ) )
 				),
 				esc_url_raw( admin_url() . '?lang=' . key( $user_languages ) )
