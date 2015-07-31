@@ -3,7 +3,7 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       https://ozthegreat.io/wpml-editor-languages
+ * @link       https://ozthegreat.io/wordpress/wpml-editor-languages
  * @since      1.0.0
  *
  * @package    Wpml_Editor_Languages
