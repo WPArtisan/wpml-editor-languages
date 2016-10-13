@@ -31,7 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Define plugin specifc constants used throughout
-DEFINE('WPML_EDITOR_LANGUAGES_VERSION', '1.0.3');
+DEFINE('WPML_EDITOR_LANGUAGES_VERSION', '1.0.4');
 DEFINE('WPML_EDITOR_LANGUAGES_PLUGIN_NAME', 'wpml-editor-languages');
 
 /**
