@@ -1,10 +1,10 @@
 === WPML Editor Languages ===
 Contributors: ozthegreat
-Donate link: https://ozthegreat.io/wordpress/wpml-editor-languages
+Donate link: https://wpartisan.me/plugins/wpml-editor-languages
 Tags: WPML, languages, multilingual, i18n, admin
 Requires at least: 3.0.1
-Tested up to: 4.2.3
-Stable tag: 1.0.1
+Tested up to: 4.6.1
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,7 +22,7 @@ This plugin **REQUIRES** WPML and is useless without it.
 
 == Installation ==
 
-1. Upload the `wpml-editory-languages` directory to the `/wp-content/plugins/` directory
+1. Upload the `wpml-editor-languages` directory to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress, (ensure you have WPML installed and activated)
 3. As an admin, go to any non-admin user and you can now select the languages
 they can use.
@@ -38,6 +38,16 @@ the other languages.
 not allowed to.
 
 == Changelog ==
+
+= 1.0.4 =
+* WordPress 4.6 version check
+
+= 1.0.3 =
+* WordPress 4.5 version check
+* Fix bug for AJAX requests & logged out users
+
+= 1.0.2 =
+* WordPress 4.4.2 version check
 
 = 1.0.1 =
 * WPMU compatible

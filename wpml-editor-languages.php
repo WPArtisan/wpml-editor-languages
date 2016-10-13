@@ -8,17 +8,17 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              https://ozthegreat.io/wordpress/wpml-editor-languages
+ * @link              https://wpartisan.me/plugins/wpml-editor-languages
  * @since             1.0.0
  * @package           wpml-editor-languages
  *
  * @wordpress-plugin
  * Plugin Name:       WPML Editor Languages
- * Plugin URI:        https://ozthegreat.io/wordpress/wpml-editor-languages
+ * Plugin URI:        https://wpartisan.me/plugins/wpml-editor-languages
  * Description:       Allows editiors to be restricted to languages with WPML
- * Version:           1.0.1
- * Author:            OzTheGreat
- * Author URI:        http://ozthegreat.io
+ * Version:           1.0.4
+ * Author:            OzTheGreat (WPArtisan)
+ * Author URI:        https://wpartisan.me
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       wpml-editor-language
@@ -31,7 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Define plugin specifc constants used throughout
-DEFINE('WPML_EDITOR_LANGUAGES_VERSION', '1.0.1');
+DEFINE('WPML_EDITOR_LANGUAGES_VERSION', '1.0.3');
 DEFINE('WPML_EDITOR_LANGUAGES_PLUGIN_NAME', 'wpml-editor-languages');
 
 /**
