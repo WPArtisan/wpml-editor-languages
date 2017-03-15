@@ -21,8 +21,8 @@
 		<td>
 			<select name="languages_allowed[]" multiple="multiple">
 			<?php foreach ( (array) $languages as $language ) : ?>
-				<option value="<?php echo $language['language_code']; ?>" <?php if ( isset( $user_languages[ $language['language_code'] ] ) ) echo 'selected ' ?>>
-					<?php echo $language['translated_name']; ?>
+				<option value="<?php echo esc_attr( $language['language_code'] ); ?>" <?php selected( isset( $user_languages[ $language['language_code'] ] ) ); ?>>
+					<?php echo esc_html( $language['translated_name'] ); ?>
 				</option>
 			<?php endforeach; ?>
 			</select>

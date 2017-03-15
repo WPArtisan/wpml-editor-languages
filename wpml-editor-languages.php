@@ -16,7 +16,7 @@
  * Plugin Name:       WPML Editor Languages
  * Plugin URI:        https://wpartisan.me/plugins/wpml-editor-languages
  * Description:       Allows editiors to be restricted to languages with WPML
- * Version:           1.0.5
+ * Version:           1.0.6
  * Author:            OzTheGreat (WPArtisan)
  * Author URI:        https://wpartisan.me
  * License:           GPL-2.0+
@@ -31,7 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Define plugin specifc constants used throughout
-DEFINE('WPML_EDITOR_LANGUAGES_VERSION', '1.0.4');
+DEFINE('WPML_EDITOR_LANGUAGES_VERSION', '1.0.6');
 DEFINE('WPML_EDITOR_LANGUAGES_PLUGIN_NAME', 'wpml-editor-languages');
 
 /**

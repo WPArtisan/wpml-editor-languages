@@ -3,8 +3,8 @@ Contributors: ozthegreat
 Donate link: https://wpartisan.me/plugins/wpml-editor-languages
 Tags: WPML, languages, multilingual, i18n, admin
 Requires at least: 4.0
-Tested up to: 4.7.1
-Stable tag: 1.0.5
+Tested up to: 4.7.3
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,6 +38,9 @@ the other languages.
 not allowed to.
 
 == Changelog ==
+
+= 1.0.6 =
+* Fix languages showing in the language switcher when they shouldn't
 
 = 1.0.5 =
 * WordPress 4.7.1 version check

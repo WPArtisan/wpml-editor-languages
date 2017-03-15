@@ -155,6 +155,8 @@ class Wpml_Editor_Languages {
 		$this->loader->add_action( 'personal_options_update', $plugin_admin, 'save_user_languages_allowed', 10 );
 		$this->loader->add_action( 'edit_user_profile_update', $plugin_admin, 'save_user_languages_allowed', 10 );
 
+		$this->loader->add_filter( 'wpml_admin_language_switcher_active_languages', $plugin_admin, 'set_language_switcher_languages', 10, 1 );
+		$this->loader->add_filter( 'wpml_admin_language_switcher_items', $plugin_admin, 'remove_all_items_option', 10, 1 );
 	}
 
 	/**
